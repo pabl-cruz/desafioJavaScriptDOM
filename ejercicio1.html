@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        //function para limpiar valores anteriores de los campos y mensajes 
+        function limpiar(){
+            document.getElementById("nombre").innerHTML = '';
+            document.getElementById("asunto").innerHTML = '';
+            document.getElementById("mensaje").innerHTML = '';
+            document.querySelector('.resultado').innerHTML = '';
+            document.querySelector('.errorNombre').innerHTML = '';
+            document.querySelector('.errorAsunto').innerHTML = '';
+            document.querySelector('.errorMensaje').innerHTML = '';
+        }
+        //function para mostrar mensaje de exito
+        function exito(){
+            document.querySelector('.resultado').innerHTML = 'Mensaje enviado con éxito!';
+        }
+        //funcion de validacion de texto 
+        function validar(nm, asnt, msj){
+            var patron = /[A-Za-z]+$/;
+            //condicional si todos los campos aprueban test con filtros regex
+            if(patron.test(nm) == true && patron.test(asnt)== true && patron.test(msj) == true){
+                let esValido = true;
+                return esValido;
+            }
+            //condicionales si alguno de los campos está vacío o no tiene caracteres aprobados por filto regex
+            if (patron.test(nm) == false){
+                document.querySelector('.errorNombre').innerHTML = 'El Nombre es requerido';
+                let esValido = false;
+            }
+            if (patron.test(asnt) == false){
+                document.querySelector('.errorAsunto').innerHTML = 'El Asunto es requerido';
+                let esValido = false;
+            }
+            if (patron.test(msj) == false){
+                document.querySelector('.errorMensaje').innerHTML = 'El Mensaje es requerido';
+                let esValido = false;
+            }
+            
+        }
+        //funcion para enviar valores de formulario
+        function enviar(e){
+            e.preventDefault();
+            limpiar();
+            //variables que capturan valores de campos
+            let nombre = document.getElementById('nombre').value
+            let asunto = document.getElementById('asunto').value
+            let mensaje = document.getElementById('mensaje').value
+            //variable que imprime resultado de funcion validar
+            let resultado = validar(nombre, asunto, mensaje)
+            //condicional que muestra mensaje de funcion exito si todos los campos pasan test de filtro
+            if(resultado == true){
+                exito()
+            }
+        }
+        //variable que permite capturar id de formulario
+        let form = document.getElementById('formulario');
+        //evento que ejecuta enviar al presionar boton submit
+        form.addEventListener('submit', enviar);
+    </script>
+</body>
+
+</html>
