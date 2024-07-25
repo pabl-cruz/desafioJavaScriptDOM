@@ -35,26 +35,42 @@
     </div>
 </div>
     <script>
-    let rojo = document.getElementById('btn-1');
-    let naranjo = document.getElementById('btn-2');
-    let amarillo = document.getElementById('btn-3');
-    let verde = document.getElementById('btn-4');
-    let celeste = document.getElementById('btn-5');
-    let magenta = document.getElementById('btn-6');
+        //variables que capturan elementos
+        let caja = document.getElementById('caja');
+        //boton es definido como arreglo que engloba todos los ids de botones btn-n
+        let boton = [document.getElementById('btn-1'), document.getElementById('btn-2'), document.getElementById('btn-3'), document.getElementById('btn-4'), document.getElementById('btn-5'), document.getElementById('btn-6')];
 
-    function cambiarColor(color){
-        console.log('dol')
-    }
-
-        var boton = []
-        for(i=1; i <=6 ; i++){
-        boton[i] = document.getElementById(`btn-${i}`);
-    }
-    console.log(boton[i]) 
-    boton.addEventListener('click', cambiarColor());
-
-    
-    
+        //funcion para cambiar color, se declara condicional switch en donde cada valor es igual al valor del arreglo de boton, cambiando estilo de color de caja con el del boton correspondiente
+        function cambiarColor(i){  
+            switch(i) {
+                case 0:
+                    caja.style.backgroundColor = '#e53e3e';
+                break
+                case 1:
+                    caja.style.backgroundColor = '#dd6b20';
+                break
+                case 2:
+                    caja.style.backgroundColor = '#faf089';
+                break
+                case 3: 
+                    caja.style.backgroundColor = '#48bb78';
+                break
+                case 4:
+                    caja.style.backgroundColor = '#81e6d9';
+                break
+                case 5:
+                    caja.style.backgroundColor = '#d53f8c';
+                break
+            }
+        }
+        
+        //ciclo for en donde se recorren todos los valores del arreglo de boton 
+        for(let i=0; i <= (boton.length - 1); i++){
+            //al escuchar evento click del valor del arreglo, se activa el codigo condcionado de la funcion cambiarColor()
+            boton[i].addEventListener('click', () => {
+                cambiarColor(i);
+            });
+        }
     </script>
 </body>
 
