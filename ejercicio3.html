@@ -1,42 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Ejercicio 3</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div>
+      <div>
+        <h2>Resultado: <span class="resultado"></span></h2>
         <div>
-            <h2>
-                Resultado: <span class="resultado"></span>
-            </h2>
+          <div>
             <div>
-                <div>
-                    <div>
-                        <label for="">Valor 1</label>
-                        <input id="valor1" type="text">
-                    </div>
-                    <div>
-                        <label for="">Valor 2</label>
-                        <input id="valor2" type="text">
-                    </div>
-                    <div style="display: flex">
-                        <button id="btn-sumar" type="button">
-                            Sumar
-                        </button>
-                        <button id="btn-restar" type="button">
-                            Restar
-                        </button>
-                    </div>
-                </div>
+              <label for="valor1">Valor 1</label>
+              <input name="valor1" id="valor1" type="text" />
             </div>
+            <div>
+              <label for="valor2">Valor 2</label>
+              <input name="valor2" id="valor2" type="text" />
+            </div>
+            <div style="display: flex">
+              <button id="btn-sumar" type="button">Sumar</button>
+              <button id="btn-restar" type="button">Restar</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <script>
-    // Escríbe aquí tu código
-    </script>
-</body>
+    //constantes referentes a botones de suma y resta
+      const botonSuma = document.getElementById("btn-sumar");
+      const botonResta = document.getElementById("btn-restar");
 
+    //función encargada de limpiar datos residuales de los campos y mensaje
+      function limpiar() {
+        document.getElementById("valor1").innerHTML = "";
+        document.getElementById("valor2").innerHTML = "";
+        document.querySelector(".resultado").innerHTML = "";
+      }
+
+    //función encargada de validar si contenido en campos es un número, de lo contrario mostrará mensaje en .resultado
+      function validar(val1, val2) {
+        let filtroNumeros = /^[0-9]*$/;
+
+        if (
+          filtroNumeros.test(val1) == false ||
+          filtroNumeros.test(val2) == false
+        ) {
+          document.querySelector(".resultado").innerHTML =
+            "Operación no permitida";
+          let esValido = false;
+          return esValido;
+        } else {
+          let esValido = true;
+          return esValido;
+        }
+      }
+    
+    //función encargada de realizar la suma entre dos números enteros
+      function sumar() {
+        //variables de valores entre los campos de cifras
+        let valorUno = parseInt(document.getElementById("valor1").value);
+        let valorDos = parseInt(document.getElementById("valor2").value);
+
+        limpiar();
+        //condicional si filtro logra pasar; realizará operación y lo imprimirá en html
+        let filtro = validar(valorUno, valorDos);
+        if (filtro == true) {
+          let resultado = valorUno + valorDos;
+        //condicional si suma de resultado es menor a 0, cambiará el valor del resultado a 0
+          if (resultado < 0) {
+            resultado = 0;
+            document.querySelector(".resultado").innerHTML = resultado;
+          } else {
+            document.querySelector(".resultado").innerHTML = resultado;
+          }
+        }
+      }
+
+    //función encargada de realizar la resta entre dos números enteros
+      function restar() {
+        let valorUno = parseInt(document.getElementById("valor1").value);
+        let valorDos = parseInt(document.getElementById("valor2").value);
+
+        limpiar();
+
+        let filtro = validar(valorUno, valorDos);
+        if (filtro == true) {
+          let resultado = valorUno - valorDos;
+        //condicional si resta de resultado es menor a 0, cambiará el valor del resultado a 0
+          if (resultado < 0) {
+            resultado = 0;
+            document.querySelector(".resultado").innerHTML = resultado;
+          } else {
+            document.querySelector(".resultado").innerHTML = resultado;
+          }
+        }
+      }
+      //eventos que escucharan clic de los botones para realizar función de operaciones
+      botonSuma.addEventListener("click", sumar);
+      botonResta.addEventListener("click", restar);
+    </script>
+  </body>
 </html>
